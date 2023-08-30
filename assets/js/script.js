@@ -23,7 +23,7 @@ proviamo ad immaginare le operazioni che vogliamo far svolgere al nostro program
 */
 
 
-
+/*
 // DICE
 
 let playerDie = Math.floor((Math.random() * 6) + 1);
@@ -56,7 +56,7 @@ if (playerDie > botDie) {
     outcomeElement.append("Alas, a tied score. Let's throw the dice again!");
 }
 
-
+/*
 /*
 MAIL
 
@@ -73,6 +73,9 @@ torniamo a scrivere in italiano
 proviamo ad immaginare le operazioni che vogliamo far svolgere al nostro programma così come lo faremmo "a mano"
 */
 
+//form btn
+const button = document.getElementById('submit');
+
 //lista email
 const emailList = [];
 
@@ -87,34 +90,30 @@ emailList.push('antares@gmail.com');
 emailList.push('betelgeuse@gmail.com');
 emailList.push('rigel@gmail.com');
 
-//definisco la costante per il bottone perché voglio al click voglio generare una reazione
-const buttonElement = document.querySelector("button[type='submit']");
-console.log(buttonElement);
 
-const formElement = document.querySelector('form');
+//schiaccio il bottone 
+button.addEventListener('click', function () {
+    //user email?
+    const userEmail = document.getElementById('email').value;
+    let canAccess = false;
 
-//al click del bottone voglio una reazione
-buttonElement.addEventListener ('submit', function (e) {
-    //prevengo il comportamento di default del buttone submit, perciò prevengo il refresh della pagina
-    e.preventDefault();
-})
+    //loop
+    for (let i = 0; i < emailList.length; i++) {
+        const thisUserEmail = emailList[i];
+        console.log(thisUserEmail);
 
-const emailElement = document.getElementById('email');
-const userEmail = emailElement.value;
-let emailCheck
+        if (thisUserEmail === userEmail) {
+            canAccess = true;
+        }
+    };
 
-//l'email è presente in lista?vediamo.
+    //console.log(canAccess);
 
-if (emailList.includes(userEmail)) {
-    emailCheck = `welcome back ${userEmail}! Take your time`;
-    console.log(`user ${userEmail} is rightfully here`);
-} else {
-    emailCheck = `You shall not pass!Sorry, not sorry`;
-    console.log(`Warning, ${userEmail} shouldn't be here`);
-}
-
- //scrivo in pagina il risultato della ricerca
- const emailCheckElement = document.getElementById('email_check');
- console.log(emailCheckElement);
- emailCheckElement.innerHTML = " ";
- emailCheckElement.append(emailCheck);
+    if (canAccess === true) {
+        console.log('You are in!');
+        document.getElementById('email_check').innerHTML = 'You are in!'
+    } else {
+        console.log('You are an intruder');
+        document.getElementById('email_check').innerHTML = 'You are an intruder'
+    };
+});
